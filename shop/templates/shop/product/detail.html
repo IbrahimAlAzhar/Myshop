@@ -1,0 +1,27 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="product-detail">
+        <img src="{% if product.image %} {{ product.image.url }} {% else %} {% static "img/no_image.jpg" %} {% endif %}">
+        <h1>{{ product.name }}</h1>
+        <h2> <a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a> </h2> <!--here create a link of catergory where product belongs to  -->
+        <p class="price">${{ product.price }}</p>
+
+        <form action="#" method="post"> <!--cart app and u r l is cart_add works on product_id -->
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="Add to cart"> <!--in submit button shows add to cart -->
+
+        </form>
+        {{ product.description|linebreaks }}
+    </div>
+
+
+
+
+{% endblock %}
